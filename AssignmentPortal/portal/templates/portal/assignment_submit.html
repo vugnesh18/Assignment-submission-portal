@@ -1,0 +1,59 @@
+{% extends 'portal/base.html' %}
+{% block content %}
+    <style>
+        /* General content styling */
+        h1 {
+            text-align: center;
+            color: #3d2c5e; /* Deep purple */
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        /* Form styling */
+        form {
+ 
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #fdf2e9; /* Light peach */
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form p {
+            margin: 15px 0;
+            color: #5e2c3d; /* Dark reddish-purple */
+        }
+
+        form input[type="file"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #d35400; /* Vibrant orange */
+            border-radius: 5px;
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        form input[type="submit"] {
+            padding: 12px 25px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #d35400; /* Vibrant orange */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #e67e22; /* Lighter orange */
+        }
+    </style>
+
+    <h1>Submit Assignment: {{ assignment.title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

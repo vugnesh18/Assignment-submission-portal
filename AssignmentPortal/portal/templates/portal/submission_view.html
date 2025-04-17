@@ -1,0 +1,94 @@
+{% extends 'portal/base.html' %}
+{% block content %}
+    <style>
+        /* General content styling */
+        h1 {
+            text-align: center;
+            color: #4a235a; /* Deep plum */
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        /* Assignment card styling */
+        .assignment-card {
+            background-color: #f5f5dc; /* Light cream */
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .assignment-card p {
+            margin: 5px 0;
+            color: #6b3e7a; /* Muted purple */
+        }
+
+        .assignment-card a {
+            color: #2e7d32; /* Forest green */
+            text-decoration: underline;
+        }
+
+        .assignment-card a:hover {
+            color: #4caf50; /* Lighter green */
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        form input[type="number"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #2e7d32; /* Forest green */
+            border-radius: 5px;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        form input[type="submit"] {
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #2e7d32; /* Forest green */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #4caf50; /* Lighter green */
+        }
+    </style>
+
+    <h1>Submissions for: {{ assignment.title }}</h1>
+    {% for submission in submissions %}
+        <div class="assignment-card">
+            <p>Student: {{ submission.student.username }}</p>
+            <p>File: <a href="{{ submission.file.url }}">{{ submission.file.name }}</a></p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="submission_id" value="{{ submission.id }}">
+                <input type="number" name="grade" value="{{ submission.grade }}" placeholder="Grade">
+                <textarea name="feedback" placeholder="Feedback">{{ submission.feedback }}</textarea>
+                <input type="submit" value="Save Feedback">
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

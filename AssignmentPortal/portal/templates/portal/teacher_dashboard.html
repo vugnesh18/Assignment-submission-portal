@@ -1,0 +1,80 @@
+{% extends 'portal/base.html' %}
+{% block content %}
+    <style>
+        /* General content styling */
+        h1 {
+            text-align: center;
+            color: #4a235a; /* Deep plum */
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        h2 {
+            color: #6b3e7a; /* Muted purple */
+            margin: 30px 0 15px;
+            font-size: 24px;
+        }
+
+        /* Create new assignment link */
+        a[href="{% url 'create_assignment' %}"] {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2e7d32; /* Forest green */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        a[href="{% url 'create_assignment' %}"]:hover {
+            background-color: #4caf50; /* Lighter green */
+        }
+
+        /* Assignment card styling */
+        .assignment-card {
+            background-color: #f5f5dc; /* Light cream */
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .assignment-card h3 {
+            color: #4a235a; /* Deep plum */
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .assignment-card p {
+            margin: 5px 0;
+            color: #6b3e7a; /* Muted purple */
+        }
+
+        .assignment-card a {
+            color: #2e7d32; /* Forest green */
+            text-decoration: underline;
+        }
+
+        .assignment-card a:hover {
+            color: #4caf50; /* Lighter green */
+        }
+    </style>
+
+    <h1>Teacher Dashboard</h1>
+    <a href="{% url 'create_assignment' %}">Create New Assignment</a>
+    <h2>My Assignments</h2>
+    {% for assignment in assignments %}
+        <div class="assignment-card">
+            <h3>{{ assignment.title }}</h3>
+            <p>{{ assignment.description }}</p>
+            <p>Deadline: {{ assignment.deadline }}</p>
+            <a href="{% url 'view_submissions' assignment.id %}">View Submissions</a>
+        </div>
+    {% endfor %}
+{% endblock %}
