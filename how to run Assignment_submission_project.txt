@@ -1,0 +1,19 @@
+python -m venv venv
+
+venv\Scripts\activate
+
+
+pip install django
+
+cd AssignmentPortal
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py runserver
+
+passwords student:bhanuvignesh 
+jntuv@44
+
+
